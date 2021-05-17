@@ -1,0 +1,36 @@
+.marker__wrapper {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+
+.marker__link{
+  text-decoration: none;
+}
+
+.marker__link:hover {
+  color: dodgerblue;
+}
+
+.marker__wrapper img {
+  object-fit: contain;
+  height: 28px;
+}
+
+.marker__details p {
+  display: block;
+  width: 70px;
+  text-align: center;
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 7px;
+}
+
+.marker__details {
+  margin: 0 ;
+}
