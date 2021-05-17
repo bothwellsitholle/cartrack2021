@@ -42,7 +42,7 @@ const App = () => {
 
   const toggleDetails = () => {
     setShowDetails((prev) => !prev);
-    console.log('toggled data')
+    console.log('clicked Aeroplane Marker')
   };
 
   return (

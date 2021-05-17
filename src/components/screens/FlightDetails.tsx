@@ -221,6 +221,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
       return setRespMessage('Image Could not be deleted');
     }
     const resData = await response.json();
+    console.log(resData)
     setRespMessage(resData.message);
     setImage((prev) => {
       return {
