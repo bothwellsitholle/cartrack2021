@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400&display=swap');@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400&family=Rubik:wght@500&display=swap');
+
+.flightDetail__wrapper {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  
+  /* justify-content: center;
+  align-items: center; */
+}
+.flightDetail__wrapper h2 {
+  text-align: center;
+  font-weight: bolder;
+  font-family: 'Raleway', sans-serif;
+  /* text-decoration: underline; */
+  color: rgba(48, 48, 48, 0.795);
+}
+
+.flightDetail__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  margin-bottom: 0.3rem;
+  border-bottom: 1px solid rgb(209, 209, 209) ;
+}
+
+.flightDetail__buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  
+}
+
+.MuiButton-containedSecondary, .MuiButton-root {
+  background-color: rgb(255, 238, 0);
+  color: rgb(3, 3, 3);
+}
+
+.flightDetail__buttons > button {
+  display: block;
+  border-right: 1px solid rgb(100, 100, 100) !important;
+}
+
+.flightDetail__wrapper img {
+  width: 100%;
+  object-fit: cover;
+  height: 400px;
+}
