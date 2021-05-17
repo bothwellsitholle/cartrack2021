@@ -50,9 +50,9 @@ const App = () => {
       <Route path='/flightDetails/:id/:name/:country/:lng/:lat/:altitude/:speed'>
         {showDetails && (
           <FlightDetails
-            // showDetails={() => {
-            // setShowDetails((prev) => !prev);
-            // }}
+             showDetails={() => {
+             setShowDetails((prev) => !prev);
+             }}
           />
         )}
         <Map
