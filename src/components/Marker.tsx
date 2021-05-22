@@ -40,11 +40,13 @@ const Marker: React.FC <MarkerType> = ({
       to={`/flightDetails/${id}/${name}/${country}/${lng}/${lat}/${altitude}/${speed}`}
     >
       <div className={classes.marker__wrapper}>
-        <img
-          style={{ transform: `rotateZ(${trackNumber}deg` }}
+        <div className={classes.singlePlane}>    
+        <Plane
           src={airplane}
           alt='flight'
+          trackNumber={trackNumber}
         />
+        </div>
         <div className={classes.marker__details}>
           <p>
             {flightData[1]}
