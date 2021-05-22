@@ -2,6 +2,15 @@ import React from 'react';
 import classes from './Marker.module.css';
 import airplane from '../airplane1.png';
 import {Link} from 'react-router-dom';
+import styled, {keyframes} from 'styled-components';
+
+
+const Plane = styled.img`
+object-fit: contain;
+height: 28px;
+transform: rotateZ(${props => props.trackNumber}deg);
+transition: all 3000ms ease-out;
+  `
 
 interface MarkerType {
   showDetails: () => void;
@@ -31,11 +40,13 @@ const Marker: React.FC <MarkerType> = ({
       to={`/flightDetails/${id}/${name}/${country}/${lng}/${lat}/${altitude}/${speed}`}
     >
       <div className={classes.marker__wrapper}>
-        <img
-          style={{ transform: `rotateZ(${trackNumber}deg` }}
+        <div className={classes.singlePlane}>    
+        <Plane
           src={airplane}
           alt='flight'
+          trackNumber={trackNumber}
         />
+        </div>
         <div className={classes.marker__details}>
           <p>
             {flightData[1]}

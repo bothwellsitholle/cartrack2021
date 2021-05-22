@@ -14,6 +14,8 @@
   text-decoration: none;
 }
 
+
+
 .marker__link:hover {
   color: dodgerblue;
 }
@@ -21,6 +23,7 @@
 .marker__wrapper img {
   object-fit: contain;
   height: 28px;
+
 }
 
 .marker__details p {
@@ -33,4 +36,20 @@
 
 .marker__details {
   margin: 0 ;
+}
+
+.singlePlane {
+  animation: shake 500ms ease-in infinite alternate; 
+  }
+
+@keyframes shake {
+  from {
+      transform: scale(1);
+      opacity: 0.7;
+  }
+
+  to {
+    transform: scale(1.1);
+    opacity: 1;
+  }
 }

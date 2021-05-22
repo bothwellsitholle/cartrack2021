@@ -202,6 +202,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
       });
   }, [fetchFlightDataFromOrigin]);
 
+
   //Delete Function for Images
   const deleteImageHandler = async () => {
     setIsError(false);
@@ -232,6 +233,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
     setFeedbackMessage('Image successfully deleted');
     setIsLoading(false);
   };
+
 
   // Update Function for Images
   const updateImageHandler = async () => {
@@ -275,6 +277,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
     setFeedbackMessage('Image successfully updated!!');
     setIsLoading(false);
   };
+  
 
   //Reseting Feedback Message
   const resetMessage = () => {
