@@ -2,6 +2,15 @@ import React from 'react';
 import classes from './Marker.module.css';
 import airplane from '../airplane1.png';
 import {Link} from 'react-router-dom';
+import styled, {keyframes} from 'styled-components';
+
+
+const Plane = styled.img`
+object-fit: contain;
+height: 28px;
+transform: rotateZ(${props => props.trackNumber}deg);
+transition: all 300ms ease-out;
+  `
 
 interface MarkerType {
   showDetails: () => void;
