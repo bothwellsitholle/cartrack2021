@@ -23,6 +23,7 @@
 .marker__wrapper img {
   object-fit: contain;
   height: 28px;
+  transition: transform 3000ms ease-out;
 
 }
 

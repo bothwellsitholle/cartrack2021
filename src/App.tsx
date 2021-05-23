@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Route } from 'react-router-dom';
+import React, { useEffect, useState} from 'react';
+import {Switch, Route } from 'react-router-dom';
 import Map from './components/screens/Map';
 import FlightDetails from './components/screens/FlightDetails';
+
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,17 +43,18 @@ const App = () => {
 
   const toggleDetails = () => {
     setShowDetails((prev) => !prev);
-    console.log('clicked Aeroplane Marker')
+    console.log('clicked Aeroplane Marker');
   };
 
   return (
     <div>
+      <Switch>
       <Route path='/flightDetails/:id/:name/:country/:lng/:lat/:altitude/:speed'>
         {showDetails && (
           <FlightDetails
-             showDetails={() => {
-             setShowDetails((prev) => !prev);
-             }}
+            showDetails={() => {
+              setShowDetails((prev) => !prev);
+            }}
           />
         )}
         <Map
@@ -69,6 +71,7 @@ const App = () => {
           onToggleDetails={toggleDetails}
         />
       </Route>
+      </Switch>
     </div>
   );
 };
@@ -76,4 +79,3 @@ const App = () => {
 // ALTERNATIVE KEY: 'AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU',
 
 export default App;
-
