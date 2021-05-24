@@ -12,6 +12,14 @@ interface MapType {
   isLoading: boolean;
 }
 
+
+/**
+ * Map Component: ->
+ * This component displays the google map on the screen. 
+ * @param props -  Props: -> object with Aeroplane data, function to toggle FlightDetails 
+ * component, isLoading state. 
+ * @returns Map with an earoplane marker
+ */
 const Map: React.FC<MapType> = ({
   flightsData,
   onToggleDetails,

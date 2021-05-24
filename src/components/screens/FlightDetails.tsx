@@ -35,33 +35,33 @@ interface ImageType {
 }
 /**
    * fetchImageFromApi function: ->
-   * This function fetches images from /airplaneImages API
-   * If the image is found it also post that image to /jetPhotos API
+   * This function fetches images from /airplaneImages API.
+   * If the image is found it also post that image to /jetPhotos API.
    * If image is posted successfully it sends get requests to /jetPhotos
-   * and returns the data
+   * and returns the data.
    * @returns - an object of ImageType
    * 
    * 
    * fetchFlightDataFromOrigin function: ->
    * This function fetches data from /jetPhotos, it checks if any images are found
    * If no images are found it calls the fetchImageFromApi function (above) which
-   * sends a get request to a 3rd party API /jetPhotos
+   * sends a get request to a 3rd party API /jetPhotos.
    * 
    * 
    * deleteImageHandler function: ->
-   * This function deletes the image rendered on screen from the database via the /jetPhotos
+   * This function deletes the image rendered on screen from the database via the /jetPhotos.
    * 
    * 
    * updateImageHandler function: ->
-   * This function updates the image rendered on screen with the images fetched from /jetPhotos
+   * This function updates the image rendered on screen with the images fetched from /jetPhotos.
    * 
    * 
    * incrementer function: ->
-   * Its used to increase the index of the flightImages
+   * Its used to increase the index of the flightImages.
    * 
    * 
    * updateImageHandler function: ->
-   * This function updates the image rendered on screen with the images fetched from /jetPhotos
+   * This function updates the image rendered on screen with the images fetched from /jetPhotos.
  */
 const FlightDetails: React.FC<{ showDetails: () => void }> = ({
   showDetails,
