@@ -23,6 +23,14 @@ interface Props {
   resetFeedback: () => void;
 }
 
+
+/**
+ * ModalContent Component: ->
+ * This component is the props.child for the Modal's component, it passes
+ *  the Aeroplanes details to the Modal and it receives data from FlightDetails.
+ * @param props - Props: -> Aeroplane's data fetched from allFlight API.
+ * @returns the Aeroplanes details tsx into the Modal.
+ */
 const ModalContent: React.FC <Props> = ({
   name,
   country,
