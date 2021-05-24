@@ -34,7 +34,7 @@ interface ImageType {
   imageId: string;
 }
 /**
-   * fetchImageFromApi function
+   * fetchImageFromApi function: ->
    * This function fetches images from /airplaneImages API
    * If the image is found it also post that image to /jetPhotos API
    * If image is posted successfully it sends get requests to /jetPhotos
@@ -42,25 +42,25 @@ interface ImageType {
    * @returns - an object of ImageType
    * 
    * 
-   * fetchFlightDataFromOrigin function
+   * fetchFlightDataFromOrigin function: ->
    * This function fetches data from /jetPhotos, it checks if any images are found
    * If no images are found it calls the fetchImageFromApi function (above) which
    * sends a get request to a 3rd party API /jetPhotos
    * 
    * 
-   * deleteImageHandler function:
+   * deleteImageHandler function: ->
    * This function deletes the image rendered on screen from the database via the /jetPhotos
    * 
    * 
-   * updateImageHandler function:
+   * updateImageHandler function: ->
    * This function updates the image rendered on screen with the images fetched from /jetPhotos
    * 
    * 
-   * incrementer function:
+   * incrementer function: ->
    * Its used to increase the index of the flightImages
    * 
    * 
-   * updateImageHandler function:
+   * updateImageHandler function: ->
    * This function updates the image rendered on screen with the images fetched from /jetPhotos
  */
 const FlightDetails: React.FC<{ showDetails: () => void }> = ({
@@ -273,7 +273,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
   };
 
 /**
- * incrementer function
+ * incrementer function:
  * Its used to increase the index of the flightImages
  */
   const incrementer = () => {
