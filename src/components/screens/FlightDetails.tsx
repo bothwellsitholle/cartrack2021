@@ -33,10 +33,40 @@ interface ImageType {
   imageUsername: string;
   imageId: string;
 }
-
+/**
+   * fetchImageFromApi function
+   * This function fetches images from /airplaneImages API
+   * If the image is found it also post that image to /jetPhotos API
+   * If image is posted successfully it sends get requests to /jetPhotos
+   * and returns the data
+   * @returns - an object of ImageType
+   * 
+   * 
+   * fetchFlightDataFromOrigin function
+   * This function fetches data from /jetPhotos, it checks if any images are found
+   * If no images are found it calls the fetchImageFromApi function (above) which
+   * sends a get request to a 3rd party API /jetPhotos
+   * 
+   * 
+   * deleteImageHandler function:
+   * This function deletes the image rendered on screen from the database via the /jetPhotos
+   * 
+   * 
+   * updateImageHandler function:
+   * This function updates the image rendered on screen with the images fetched from /jetPhotos
+   * 
+   * 
+   * incrementer function:
+   * Its used to increase the index of the flightImages
+   * 
+   * 
+   * updateImageHandler function:
+   * This function updates the image rendered on screen with the images fetched from /jetPhotos
+ */
 const FlightDetails: React.FC<{ showDetails: () => void }> = ({
   showDetails,
 }) => {
+  const [imageIndex, setImageIndex] = useState(0);
   const [respMessage, setRespMessage] = useState('');
   const [imageWasFound, setImageWasFound] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -64,7 +94,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
     altContent = <p>No data</p>;
   }
 
-  //////////////Fetching image fom /airplaneImages //////////////////////////////
+  ////////////// Fetching image fom /airplaneImages //////////////////////////////
   const fetchImageFromApi = useCallback(async () => {
     console.log('Searching images from 3rd party');
     const resData = await fetch(
@@ -89,11 +119,14 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
       return ImgData;
     }
     console.log('Fetch successful!');
-    const randomImageIndex = Math.floor(Math.random() * res.length);
-    setFlightImages(res.filter((data) => data !== res[randomImageIndex]));
-    console.log(res[randomImageIndex][0]);
+    // const randomImageIndex = Math.floor(Math.random() * res.length);
+    // setFlightImages(res);
+    setFlightImages(res.filter((data) => data !== res[0]));
+    console.log(res[0][0]);
 
-    // If images are found post to /jetPhotos
+    /**
+     * When images are found this function sends a post request to /jetPhotos
+     */
     try {
       const rez = await fetch(
         'https://gentle-temple-27938.herokuapp.com/jetPhotos',
@@ -105,7 +138,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
           body: JSON.stringify({
             username: 'bothwellsitholle@gmail.com',
             airplane_icao: id,
-            airplane_image: res[randomImageIndex][0],
+            airplane_image: res[0][0],
           }),
         }
       );
@@ -116,7 +149,10 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
       console.log('Successfully Posted image to /jetPhotos');
       console.log(rez);
 
-      // Fetch Image from Origin (/jetPhotos) Database and return it
+      /**
+       * When images are posted successfully this function sends a
+       * get request to /jetPhotos and returns the data
+       */
       console.log('fetching from /jetPhotos..');
       const resp = await fetch(
         'https://gentle-temple-27938.herokuapp.com/jetPhotos'
@@ -169,6 +205,10 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
       }
     } else {
       console.log('Image found');
+      
+      // Fetch images for updating purposes
+      await fetchImageFromApi();
+      
       setImageWasFound(true);
 
       const imageData: ImageType = {
@@ -180,7 +220,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
     }
   }, [id, fetchImageFromApi]);
 
-  ///////////////////////////////////******** Initial fetching of data **********/////////////////////////////////
+  /////////////////////////////////// Initial fetching of data /////////////////////////////////
   useEffect(() => {
     setIsLoading(true);
     setRespMessage('Searching for Image');
@@ -202,7 +242,6 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
       });
   }, [fetchFlightDataFromOrigin]);
 
-
   //Delete Function for Images
   const deleteImageHandler = async () => {
     setIsError(false);
@@ -222,7 +261,6 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
       return setRespMessage('Image Could not be deleted');
     }
     const resData = await response.json();
-    console.log(resData)
     setRespMessage(resData.message);
     setImage((prev) => {
       return {
@@ -234,13 +272,22 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
     setIsLoading(false);
   };
 
+/**
+ * incrementer function
+ * Its used to increase the index of the flightImages
+ */
+  const incrementer = () => {
+    setImageIndex((prev) => (prev + 1) % flightImages.length);
+  };
 
   // Update Function for Images
   const updateImageHandler = async () => {
     setIsError(false);
-    if (flightImages.length < 2) {
+    if (flightImages.length === 0) {
       setIsError(true);
-      return setFeedbackMessage('No images found to update');
+      return setFeedbackMessage(
+        'No images found at the moment'
+      );
     }
     setIsLoading(true);
     setRespMessage('Updating Image');
@@ -248,7 +295,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
     console.log(flightImages[1]);
     let url =
       'https://gentle-temple-27938.herokuapp.com/jetPhotos/60241b360f42f8c96bfc077b';
-    const randomImageIndex = Math.floor(Math.random() * flightImages.length);
+    // const randomImageIndex = Math.floor(Math.random() * flightImages.length);
 
     const response = await fetch(url, {
       method: 'PUT',
@@ -258,28 +305,35 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
       body: JSON.stringify({
         username: image.imageUsername,
         airplane_ica: id,
-        airplane_image: flightImages[randomImageIndex][0],
+        airplane_image: flightImages[imageIndex][0],
       }),
     });
 
     if (!response.ok) {
+      setIsError(true);
+      setIsLoading(false);
       return setFeedbackMessage('Failed to update image, please try again!');
     }
 
     setImage((prev) => {
       return {
         ...prev,
-        imageUrl: flightImages[randomImageIndex][0],
+        imageUrl: flightImages[imageIndex][0],
       };
     });
 
+    incrementer();
     console.log(response);
     setFeedbackMessage('Image successfully updated!!');
     setIsLoading(false);
   };
-  
 
   //Reseting Feedback Message
+  /**
+   * resetMessage function:
+   * This function resets the feedback message to an empty string,
+   * its connectec to the click event of the toast
+   */
   const resetMessage = () => {
     setFeedbackMessage('');
   };
