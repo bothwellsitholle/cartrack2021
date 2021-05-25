@@ -20,10 +20,13 @@ import FlightDetails from './components/screens/FlightDetails';
  * aeroplane's data upon a click event on the aeroplane's images 
  * or 'closewindow' button or modal's backdrop.
  */
+
+type AllFlights = (string | number)[][]
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
-  const [flightsData, setflightsData] = useState([]);
+  const [flightsData, setflightsData] = useState<AllFlights>([]);
 
   useEffect(() => {
     const fetchPlanLocations = async () => {
@@ -35,9 +38,6 @@ const App = () => {
       // check Response
       if (!response.ok) {
         throw new Error('Something went wrong');
-      }
-      if (response.status === 503) {
-        throw new Error('Servive is not available at the moment');
       }
       const data = await response.json();
       console.log(data);
@@ -57,6 +57,7 @@ const App = () => {
     };
   }, []);
 
+  //This will open or close Display of flight details
   const toggleDetails = () => {
     setShowDetails((prev) => !prev);
     console.log('clicked Aeroplane Marker');

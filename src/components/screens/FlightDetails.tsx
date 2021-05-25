@@ -34,34 +34,34 @@ interface ImageType {
   imageId: string;
 }
 /**
-   * fetchImageFromApi function: ->
-   * This function fetches images from /airplaneImages API.
-   * If the image is found it also post that image to /jetPhotos API.
-   * If image is posted successfully it sends get requests to /jetPhotos
-   * and returns the data.
-   * @returns - an object of ImageType
-   * 
-   * 
-   * fetchFlightDataFromOrigin function: ->
-   * This function fetches data from /jetPhotos, it checks if any images are found
-   * If no images are found it calls the fetchImageFromApi function (above) which
-   * sends a get request to a 3rd party API /jetPhotos.
-   * 
-   * 
-   * deleteImageHandler function: ->
-   * This function deletes the image rendered on screen from the database via the /jetPhotos.
-   * 
-   * 
-   * updateImageHandler function: ->
-   * This function updates the image rendered on screen with the images fetched from /jetPhotos.
-   * 
-   * 
-   * incrementer function: ->
-   * Its used to increase the index of the flightImages.
-   * 
-   * 
-   * updateImageHandler function: ->
-   * This function updates the image rendered on screen with the images fetched from /jetPhotos.
+ * fetchImageFromApi function: ->
+ * This function fetches images from /airplaneImages API.
+ * If the image is found it also post that image to /jetPhotos API.
+ * If image is posted successfully it sends get requests to /jetPhotos
+ * and returns the data.
+ * @returns - an object of ImageType
+ *
+ *
+ * fetchFlightDataFromOrigin function: ->
+ * This function fetches data from /jetPhotos, it checks if any images are found
+ * If no images are found it calls the fetchImageFromApi function (above) which
+ * sends a get request to a 3rd party API /jetPhotos.
+ *
+ *
+ * deleteImageHandler function: ->
+ * This function deletes the image rendered on screen from the database via the /jetPhotos.
+ *
+ *
+ * updateImageHandler function: ->
+ * This function updates the image rendered on screen with the images fetched from /jetPhotos.
+ *
+ *
+ * incrementer function: ->
+ * Its used to increase the index of the flightImages.
+ *
+ *
+ * updateImageHandler function: ->
+ * This function updates the image rendered on screen with the images fetched from /jetPhotos.
  */
 const FlightDetails: React.FC<{ showDetails: () => void }> = ({
   showDetails,
@@ -70,7 +70,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
   const [respMessage, setRespMessage] = useState('');
   const [imageWasFound, setImageWasFound] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [flightImages, setFlightImages] = useState<string[][]>([]);
+  const [flightImages, setFlightImages] = useState<AirplaneImages>([]);
   const [feedbackMessage, setFeedbackMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [image, setImage] = useState<imageType>({
@@ -124,6 +124,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
     setFlightImages(res.filter((data) => data !== res[0]));
     console.log(res[0][0]);
 
+
     /**
      * When images are found this function sends a post request to /jetPhotos
      */
@@ -164,8 +165,10 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
 
       const resdata: JetPhotos[] = await resp.json();
       let flightData = resdata.filter((data) => data.airplane_icao === id);
+      
       console.log(flightData[0].airplane_image);
       setImageWasFound(true);
+
       let imgData2: ImageType = {
         imageUrl: flightData[0].airplane_image,
         imageId: flightData[0]._id,
@@ -205,10 +208,10 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
       }
     } else {
       console.log('Image found');
-      
+
       // Fetch images for updating purposes
       await fetchImageFromApi();
-      
+
       setImageWasFound(true);
 
       const imageData: ImageType = {
@@ -272,10 +275,10 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
     setIsLoading(false);
   };
 
-/**
- * incrementer function:
- * Its used to increase the index of the flightImages
- */
+  /**
+   * incrementer function:
+   * Its used to increase the index of the flightImages
+   */
   const incrementer = () => {
     setImageIndex((prev) => (prev + 1) % flightImages.length);
   };
@@ -285,9 +288,7 @@ const FlightDetails: React.FC<{ showDetails: () => void }> = ({
     setIsError(false);
     if (flightImages.length === 0) {
       setIsError(true);
-      return setFeedbackMessage(
-        'No images found at the moment'
-      );
+      return setFeedbackMessage('No images found at the moment');
     }
     setIsLoading(true);
     setRespMessage('Updating Image');

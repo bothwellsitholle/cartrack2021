@@ -32,6 +32,7 @@ const Map: React.FC<MapType> = ({
           key: 'AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU',
           language: 'en',
         }}
+        //Loures
         defaultCenter={{
           lat: 38.830238,
           lng: -9.16709,
