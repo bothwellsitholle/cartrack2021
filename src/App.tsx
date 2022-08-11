@@ -93,6 +93,5 @@ const App = () => {
   );
 };
 
-// ALTERNATIVE KEY: 'AIzaSyBNLrJhOMz6idD05pzfn5lhA-TAw-mAZCU',
 
 export default App;
