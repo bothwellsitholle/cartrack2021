@@ -6,7 +6,5 @@ Use the link below to view the App deployed on Firebase:
 # https://cartrek-65447.web.app/
 
 
-Use the Link below for documentation:
 
-# http://cartrackdocumentation.clapsa.co.za/
 
